@@ -2,7 +2,7 @@
   <div class="column is-3">
     <div class="box">
       <figure class="image mb-4">
-        <img :src=product.get_thumbnail alt="">
+        <img :src="thumbnailUrl" alt="">
       </figure>
 
       <h3 class="is-size-4">{{ product.name }}</h3>
@@ -16,12 +16,21 @@
 </template>
 
 <script>
-export default{
-    name: 'ProductBox',
-    props: {
-        product : Object
+import axios from 'axios'
+
+export default {
+  name: 'ProductBox',
+  props: {
+    product: Object
+  },
+  computed: {
+    thumbnailUrl() {
+      return this.product.get_thumbnail
+        ? axios.defaults.baseURL + this.product.get_thumbnail
+        : 'https://via.placeholder.com/150'
     }
   }
+}
 </script>
 
 
